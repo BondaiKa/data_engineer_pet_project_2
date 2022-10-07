@@ -130,4 +130,4 @@ dmypy.json
 
 .idea/
 
-*.yml
+data_engineer_pet_project_2/config/files/*.yml
