@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+
+  hadoop:
+    container_name: data_engineer_pet_project_2.pyspark
+    image: jupyter/pyspark-notebook
+    env_file:
+      - env/.env
+    build:
+      context: .
+      dockerfile: pyspark.Dockerfile
+    volumes:
+      - /Volumes/Samsung_T5/datasets/yelp_dataset/archive:/user/karim/datalake
+    ports:
+      - "8888:8888"
+
