@@ -1,0 +1,6 @@
+hdfs:
+  ip_address: ""
+  port:
+  hdfs_dataset_core_path: ""
+spark:
+  spark.driver.memory: 2g
