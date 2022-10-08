@@ -25,7 +25,7 @@ class YelpBusinessDatasetStagingJob(BaseJob):
     def transform(self, df: DataFrame, *args, **kwargs) -> DataFrame:
         return df
 
-    def filter_df(self, dataset: DataFrame) -> DataFrame:
+    def filter_df(self, dataset: DataFrame, *args, **kwargs) -> DataFrame:
         return clean_business_dataset(df=dataset, address=self.schema.address, business_id=self.schema.business_id,
                                       categories=self.schema.categories, city=self.schema.city,
                                       is_open=self.schema.is_open, stars=self.schema.stars, name=self.schema.name,

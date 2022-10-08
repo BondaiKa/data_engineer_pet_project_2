@@ -1,0 +1,10 @@
+class YelpReviewDatasetSchema:
+    review_id = 'review_id'
+    user_id = 'user_id'
+    business_id = 'business_id'
+    stars = 'stars'
+    date = 'date'
+    text = 'text'
+    useful = 'useful'
+    funny = 'funny'
+    cool = 'cool'

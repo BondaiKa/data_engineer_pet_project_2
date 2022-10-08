@@ -1,3 +1,7 @@
+from datetime import datetime
+from typing import Tuple
+
+
 class MetaSingleton(type):
     """Metaclass for create singleton"""
 
@@ -16,3 +20,13 @@ YELP_CHECKIN_NAME = f"{YELP_DATASET_CORE_NAME}_checkin"
 YELP_REVIEW_NAME = f"{YELP_DATASET_CORE_NAME}_review"
 YELP_TIP_NAME = f"{YELP_DATASET_CORE_NAME}_tip"
 YELP_USER_NAME = f"{YELP_DATASET_CORE_NAME}_user"
+
+
+def get_date_range(year_datetime: datetime, number_of_week: int) -> Tuple[datetime, datetime]:
+    """Get start and end date from year and week number
+
+    :param year_datetime: year
+    :param number_of_week: week number start from January
+    :return: desired data range
+    """
+    raise NotImplementedError

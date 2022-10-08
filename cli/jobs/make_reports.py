@@ -22,5 +22,5 @@ def create_dataset_temperature_report_cli(date: datetime):
     """
     log.info(f"Find bike trips from temperature dependency {date:'%Y-%m'}...")
     trip_temp_depend_job = BikeTripTemperatureDependencyJob()
-    trip_temp_depend_job.run(date=date)
+    trip_temp_depend_job.run(end_date=date)
     log.info(f"`Writing bike trip temperature dependency done...")
