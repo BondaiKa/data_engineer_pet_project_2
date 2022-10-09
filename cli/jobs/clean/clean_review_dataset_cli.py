@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 import click
 
@@ -15,18 +15,18 @@ def cli():
 
 
 @cli.command()
-@click.option('--year_date', '-d', type=click.DateTime(format(["%Y"])), required=True)
-@click.option('--week_number', '-d', type=click.INT, required=True)
-def weekly_clean_review_cli(year_date: datetime, week_number: int):
+@click.option('--year', '-y', type=click.INT, required=True)
+@click.option('--week_number', '-w', type=click.INT, required=True)
+def weekly_clean_review_cli(year: int, week_number: int):
     """Clean and store daily review files for one set week
 
     :param year_date: year
     :param week_number:  number of week starts from January
     :return:
     """
-    start_date, end_date = get_date_range(input_datetime=year_date, week_number=week_number)
+    start_date, end_date = get_date_range(year=year, number_of_week=week_number)
 
-    log.info(f"Run weekly cleaning and distributing `review` dataset for {week_number} week {year_date} year...")
+    log.info(f"Run weekly cleaning and distributing `review` dataset for {week_number} week {year} year...")
     for cur_date in [start_date + timedelta(days=x) for x in range(6)]:
         weather_dataset_job = YelpReviewDatasetStagingJob()
         weather_dataset_job.run(date=cur_date)

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from typing import Tuple
 
 
@@ -22,11 +22,15 @@ YELP_TIP_NAME = f"{YELP_DATASET_CORE_NAME}_tip"
 YELP_USER_NAME = f"{YELP_DATASET_CORE_NAME}_user"
 
 
-def get_date_range(year_datetime: datetime, number_of_week: int) -> Tuple[datetime, datetime]:
+def get_date_range(year: int, number_of_week: int) -> Tuple[date, date]:
     """Get start and end date from year and week number
 
     :param year_datetime: year
     :param number_of_week: week number start from January
     :return: desired data range
     """
-    raise NotImplementedError
+
+    d = f"{year}-W{number_of_week}"
+    start_date = datetime.strptime(d + '-1', "%Y-W%W-%w").date()
+    end_date = start_date + timedelta(days=6)
+    return start_date, end_date

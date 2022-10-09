@@ -25,7 +25,7 @@ class BaseDataLakeArea(metaclass=ABCMeta):
 
     def add_date_prefix(self, path: Union[str, Path], date: datetime) -> str:
         """Enrich year and month in path"""
-        return f"{date.year}/{date.month}/{path}"
+        return f"{date.year}/{date.month:02d}/{path}"
 
     def get_full_split_by_day_paths(self, paths: Iterable[Union[str, Path]], dataset_name: str, date: datetime) -> List[
         str]:

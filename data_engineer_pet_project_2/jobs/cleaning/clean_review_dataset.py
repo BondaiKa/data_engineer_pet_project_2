@@ -17,7 +17,7 @@ class YelpReviewDatasetStagingJob(BaseJob):
     area = BaseStagingArea()
     schema = YelpReviewDatasetSchema
 
-    def extract(self, end_date: datetime, *args, **kwargs) -> DataFrame:
+    def extract(self, date: datetime, *args, **kwargs) -> DataFrame:
         """Load dataset
 
         :param end_date: end date (last day on a week)
@@ -25,25 +25,24 @@ class YelpReviewDatasetStagingJob(BaseJob):
         """
         return self.filter_df(
             dataset=Session().load_json_file(paths=self._get_initial_dataset_paths()),
-            start_date=...,
-            end_date=end_date,
+            date=date,
         )
 
     def _get_initial_dataset_paths(self, *args, **kwargs):
         return BaseLandingArea().get_landing_raw_yelp_dataset_review_json_path()
 
-    def transform(self, df: DataFrame, date: datetime, *args, **kwargs) -> DataFrame:
+    def transform(self, df: DataFrame, *args, **kwargs) -> DataFrame:
         return df
 
-    def filter_df(self, dataset: DataFrame, start_date: datetime, end_date: datetime, *args, **kwargs) -> DataFrame:
+    def filter_df(self, dataset: DataFrame, date: datetime, *args, **kwargs) -> DataFrame:
         return clean_review_dataset(df=dataset, review_id=self.schema.review_id, user_id=self.schema.user_id,
                                     business_id=self.schema.business_id, stars=self.schema.stars,
-                                    end_date=self.schema.date)
+                                    date=self.schema.date, filter_condition_date=date)
 
     def run(self, date: datetime, *args, **kwargs):
         """run extracting, transforming and saving dataframe job"""
         log.info(f'Start to extract data...')
-        df = self.extract()
+        df = self.extract(date)
 
         log.info(f'Start dataframe transformation...')
         df = self.transform(df, date=date)
@@ -51,6 +50,6 @@ class YelpReviewDatasetStagingJob(BaseJob):
         log.info(f'Start save transformed results...')
         self.save(df, date, *args, **kwargs)
 
-    def save(self, df: DataFrame, date:datetime, *args, **kwargs):
-        ...
-
+    def save(self, df: DataFrame, date: datetime, *args, **kwargs):
+        for path in self.area.get_staging_review_dataset_paths(date=date):
+            df.repartition(1).write.mode('overwrite').parquet(path=path)
