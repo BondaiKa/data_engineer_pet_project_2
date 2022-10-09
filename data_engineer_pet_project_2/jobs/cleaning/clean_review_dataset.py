@@ -14,6 +14,7 @@ log = logging.getLogger(__name__)
 
 
 class YelpReviewDatasetStagingJob(BaseJob):
+    """Clean and convert review dataset"""
     area = BaseStagingArea()
     schema = YelpReviewDatasetSchema
 

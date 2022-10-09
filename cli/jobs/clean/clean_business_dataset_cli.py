@@ -14,8 +14,8 @@ def cli():
 
 @cli.command()
 def clean_yelp_business_datasets_cli():
-    """Join Weather Citibike datasets"""
+    """clean Yelp business dataset"""
     log.info(f"Start to clean yelp business dataset...")
-    bike_weather_job = YelpBusinessDatasetStagingJob()
-    bike_weather_job.run()
+    clean_business_job = YelpBusinessDatasetStagingJob()
+    clean_business_job.run()
     log.info(f"Yelp business dataset has been cleaned...")

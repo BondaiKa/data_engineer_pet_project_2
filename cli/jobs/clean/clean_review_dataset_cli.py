@@ -20,7 +20,7 @@ def cli():
 def weekly_clean_review_cli(year: int, week_number: int):
     """Clean and store daily review files for one set week
 
-    :param year_date: year
+    :param year: year of weekly cleaning reviews
     :param week_number:  number of week starts from January
     :return:
     """
@@ -28,7 +28,7 @@ def weekly_clean_review_cli(year: int, week_number: int):
 
     log.info(f"Run weekly cleaning and distributing `review` dataset for {week_number} week {year} year...")
     for cur_date in [start_date + timedelta(days=x) for x in range(6)]:
-        weather_dataset_job = YelpReviewDatasetStagingJob()
-        weather_dataset_job.run(date=cur_date)
+        clean_review_job = YelpReviewDatasetStagingJob()
+        clean_review_job.run(date=cur_date)
 
     log.info(f"`Weakly cleaning review dataset done...")

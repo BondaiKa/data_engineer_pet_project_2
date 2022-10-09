@@ -1,9 +1,8 @@
 import logging
-from datetime import datetime
 
 import click
 
-from data_engineer_pet_project.jobs.load_citibike_dataset_to_parquet import BikeDatasetLandingJob
+from data_engineer_pet_project_2.jobs.cleaning.clean_checkin_dataset import YelpCheckinDatasetStagingJob
 
 log = logging.getLogger(__name__)
 
@@ -14,14 +13,9 @@ def cli():
 
 
 @cli.command()
-@click.option('--date', '-d', type=click.DateTime(), required=True)
-def load_bike_dataset_to_parquet_cli(date: datetime):
-    """Change citibike files format from csv to parquet
-
-    :param date: last month date
-    :return:
-    """
-    log.info(f"Run changing citibike dataset format from csv to parquet for {date:'%Y-%m'}...")
-    bike_dataset_job = BikeDatasetLandingJob()
-    bike_dataset_job.run(date=date)
-    log.info(f"`loading citibike dataset to parquet cli done...")
+def clean_checkin_dataset_cli():
+    """Clean `checkin` dataset"""
+    log.info(f"Run cleaning checkin dataset...")
+    checkin_dataset_job = YelpCheckinDatasetStagingJob()
+    checkin_dataset_job.run()
+    log.info(f"Cleaning `checkin` dataset has been completed...")

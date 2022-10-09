@@ -4,14 +4,14 @@ from data_engineer_pet_project_2.datalake.landing import BaseLandingArea
 from data_engineer_pet_project_2.datalake.staging import BaseStagingArea
 from data_engineer_pet_project_2.jobs.base import BaseJob
 from data_engineer_pet_project_2.jobs.session import Session
-from data_engineer_pet_project_2.schema.business import YelpBusinessDatasetSchema
-from data_engineer_pet_project_2.transformers.cleaning.clean_business_dataset import clean_business_dataset
+from data_engineer_pet_project_2.schema.user import YelpUserDatasetSchema
+from data_engineer_pet_project_2.transformers.cleaning.clean_user_dataset import clean_user_dataset
 
 
-class YelpBusinessDatasetStagingJob(BaseJob):
-    """Clean and convert business dataset"""
+class YelpUserDatasetStagingJob(BaseJob):
+    """Clean and convert user dataset"""
     area = BaseStagingArea()
-    schema = YelpBusinessDatasetSchema
+    schema = YelpUserDatasetSchema
 
     def extract(self, *args, **kwargs) -> DataFrame:
         """Load dataset"""
@@ -20,17 +20,17 @@ class YelpBusinessDatasetStagingJob(BaseJob):
         )
 
     def _get_initial_dataset_paths(self, *args, **kwargs):
-        return BaseLandingArea().get_landing_raw_yelp_dataset_business_json_path()
+        return BaseLandingArea().get_landing_raw_yelp_dataset_user_json_path()
 
     def transform(self, df: DataFrame, *args, **kwargs) -> DataFrame:
         return df
 
     def filter_df(self, dataset: DataFrame, *args, **kwargs) -> DataFrame:
-        return clean_business_dataset(df=dataset, address=self.schema.address, business_id=self.schema.business_id,
-                                      categories=self.schema.categories, city=self.schema.city,
-                                      is_open=self.schema.is_open, stars=self.schema.stars, name=self.schema.name,
-                                      review_count=self.schema.review_count)
+        return clean_user_dataset(df=dataset, user_id=self.schema.user_id, name=self.schema.name,
+                                  review_count=self.schema.review_count,
+                                  useful=self.schema.useful, funny=self.schema.funny, cool=self.schema.cool,
+                                  fans=self.schema.fans, average_stars=self.schema.average_stars, )
 
     def save(self, df: DataFrame, *args, **kwargs):
-        for path in self.area.get_staging_business_dataset_paths():
+        for path in self.area.get_staging_user_dataset_paths():
             df.repartition(1).write.mode('overwrite').parquet(path=path)
