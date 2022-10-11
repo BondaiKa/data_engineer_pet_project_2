@@ -8,7 +8,7 @@ from data_engineer_pet_project_2.datalake.public import BasePublicArea
 from data_engineer_pet_project_2.datalake.staging import BaseStagingArea
 from data_engineer_pet_project_2.jobs.session import Session
 from data_engineer_pet_project_2.schema.business_stars import YelpPeriodBusinessStarReportSchema
-from data_engineer_pet_project_2.transformers.period_business_star import get_period_business_star_report
+from data_engineer_pet_project_2.transformers.report.period_business_star import get_period_business_star_report
 
 log = logging.getLogger(__name__)
 
@@ -22,7 +22,8 @@ class YelpPeriodBusinessStarReportJob:
         """Load dataset"""
         review_df = self.filter_df(
             dataset=Session().load_dataframe(
-                paths=BaseStagingArea().get_staging_review_dataset_paths(start_date=start_date, end_date=end_date))
+                paths=BaseStagingArea().get_staging_review_dataset_paths(
+                    start_date=start_date, end_date=end_date))
         )
         business_df = self.filter_df(
             dataset=Session().load_dataframe(
@@ -43,13 +44,13 @@ class YelpPeriodBusinessStarReportJob:
 
     def run(self, start_date: datetime.date, end_date: datetime.date):
         """Run extracting, transforming and saving dataframe job"""
-        log.info(f'Start to extract data...')
+        log.info('Start to extract data...')
         business_df, review_df = self.extract(start_date=start_date, end_date=end_date)
 
-        log.info(f'Start dataframe transformation...')
+        log.info('Start dataframe transformation...')
         df = self.transform(business_df=business_df, review_df=review_df)
 
-        log.info(f'Start save transformed results...')
+        log.info('Start save transformed results...')
         self.save(df, date=start_date)
 
     def save(self, df: DataFrame, date: datetime):

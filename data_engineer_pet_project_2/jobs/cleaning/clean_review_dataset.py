@@ -42,13 +42,13 @@ class YelpReviewDatasetStagingJob(BaseJob):
 
     def run(self, date: datetime, *args, **kwargs):
         """run extracting, transforming and saving dataframe job"""
-        log.info(f'Start to extract data...')
+        log.info(f'Start to extract data for {date}...')
         df = self.extract(date)
 
-        log.info(f'Start dataframe transformation...')
+        log.info('Start dataframe transformation...')
         df = self.transform(df, date=date)
 
-        log.info(f'Start save transformed results...')
+        log.info('Start save transformed results...')
         self.save(df, date, *args, **kwargs)
 
     def save(self, df: DataFrame, date: datetime, *args, **kwargs):

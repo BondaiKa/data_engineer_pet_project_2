@@ -22,6 +22,7 @@ class BaseDataLakeArea(metaclass=ABCMeta):
         return f"{dataset_name}/{path}"
 
     def add_base_prefix(self, path: Union[str, Path]) -> str:
+        """Base directory of datalake"""
         return f"{self.config.dataset_core_path}/{path}"
 
     @staticmethod
@@ -51,7 +52,8 @@ class BaseDataLakeArea(metaclass=ABCMeta):
     def get_full_split_by_year_month_path(self, path: Union[str, Path], dataset_name: str,
                                           date: datetime.date) -> str:
         """Add base directory and area and dataset and splitted by year and month prefixes"""
-        return self.get_full_split_by_year_path(self.add_month_prefix(path, month=date.month), date=date,
+        return self.get_full_split_by_year_path(self.add_month_prefix(path, month=date.month),
+                                                date=date,
                                                 dataset_name=dataset_name)
 
     def get_full_paths(self, paths: Iterable[Union[str, Path]], dataset_name: str) -> List[str]:
@@ -59,4 +61,5 @@ class BaseDataLakeArea(metaclass=ABCMeta):
         return [
             self.add_base_prefix(
                 self.add_container_area_prefix(
-                    self.add_dataset_name_prefix(path, dataset_name=dataset_name))) for path in paths]
+                    self.add_dataset_name_prefix(
+                        path, dataset_name=dataset_name))) for path in paths]

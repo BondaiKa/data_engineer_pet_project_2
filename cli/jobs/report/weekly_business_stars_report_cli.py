@@ -25,7 +25,9 @@ def create_report_weekly_stars_business_cli(year: int, week_number: int):
     """
     start_date, end_date = get_date_range(year=year, number_of_week=week_number)
 
-    log.info(f"Run stars per business on a weekly basis report for {week_number} week {year} year...")
+    log.info(f"Run stars per business on a weekly basis report for {week_number} week "
+             f"({start_date} - {end_date}) {year} year...")
+
     weekly_business_report_job = YelpPeriodBusinessStarReportJob()
     weekly_business_report_job.run(start_date=start_date, end_date=end_date)
 

@@ -1,7 +1,5 @@
 from pathlib import Path
-from typing import Optional, Union
-
-
+from typing import Union
 
 from data_engineer_pet_project_2.base.utils import YELP_KAGGLE_DATASET_NAME
 from data_engineer_pet_project_2.config import Config

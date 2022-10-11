@@ -16,14 +16,16 @@ class BaseJob(metaclass=ABCMeta):
     area: BaseDataLakeArea
     schema: type
 
-    def extract(self, start_date: Optional[datetime], end_date: datetime, *args, **kwargs) -> DataFrame:
+    def extract(self, start_date: Optional[datetime], end_date: datetime,
+                *args, **kwargs) -> DataFrame:
         """Load dataset"""
         return self.filter_df(
             dataset=Session().load_dataframe(
                 paths=self._get_initial_dataset_paths(start_date=start_date, end_date=end_date))
         )
 
-    def _get_initial_dataset_paths(self, start_date: Optional[datetime], end_date: datetime, *args, **kwargs):
+    def _get_initial_dataset_paths(self, start_date: Optional[datetime],
+                                   end_date: datetime, *args, **kwargs):
         raise NotImplementedError
 
     @abstractmethod
@@ -36,15 +38,16 @@ class BaseJob(metaclass=ABCMeta):
         """Save results"""
         raise NotImplementedError
 
-    def run(self, start_date: Optional[datetime] = None, end_date: Optional[datetime] = None, *args, **kwargs):
+    def run(self, start_date: Optional[datetime] = None,
+            end_date: Optional[datetime] = None, *args, **kwargs):
         """run extracting, transforming and saving dataframe job"""
-        log.info(f'Start to extract data...')
+        log.info('Start to extract data...')
         df = self.extract(start_date=start_date, end_date=end_date)
 
-        log.info(f'Start dataframe transformation...')
+        log.info('Start dataframe transformation...')
         df = self.transform(df)
 
-        log.info(f'Start save transformed results...')
+        log.info('Start save transformed results...')
         self.save(df, *args, **kwargs)
 
     @abstractmethod

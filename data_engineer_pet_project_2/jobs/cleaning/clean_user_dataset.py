@@ -26,10 +26,12 @@ class YelpUserDatasetStagingJob(BaseJob):
         return df
 
     def filter_df(self, dataset: DataFrame, *args, **kwargs) -> DataFrame:
-        return clean_user_dataset(df=dataset, user_id=self.schema.user_id, name=self.schema.name,
-                                  review_count=self.schema.review_count,
-                                  useful=self.schema.useful, funny=self.schema.funny, cool=self.schema.cool,
-                                  fans=self.schema.fans, average_stars=self.schema.average_stars, )
+        return clean_user_dataset(
+            df=dataset, user_id=self.schema.user_id, name=self.schema.name,
+            review_count=self.schema.review_count,
+            useful=self.schema.useful, funny=self.schema.funny, cool=self.schema.cool,
+            fans=self.schema.fans, average_stars=self.schema.average_stars,
+        )
 
     def save(self, df: DataFrame, *args, **kwargs):
         for path in self.area.get_staging_user_dataset_path():

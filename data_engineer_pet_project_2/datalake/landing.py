@@ -1,9 +1,13 @@
-from data_engineer_pet_project_2.base.utils import (YELP_BUSINESS_NAME, YELP_CHECKIN_NAME, YELP_REVIEW_NAME,
-                                                    YELP_TIP_NAME, YELP_USER_NAME)
+from data_engineer_pet_project_2.base.utils import (
+    YELP_BUSINESS_NAME, YELP_CHECKIN_NAME,
+    YELP_REVIEW_NAME, YELP_TIP_NAME,
+    YELP_USER_NAME
+)
 from data_engineer_pet_project_2.datalake.base import BaseDataLakeArea
 
 
 class BaseLandingArea(BaseDataLakeArea):
+    """Landing area for containing initial raw datasets"""
     AREA_CONTAINER = 'landing'
 
     def get_landing_raw_yelp_dataset_business_json_path(self) -> str:

@@ -26,10 +26,12 @@ class YelpBusinessDatasetStagingJob(BaseJob):
         return df
 
     def filter_df(self, dataset: DataFrame, *args, **kwargs) -> DataFrame:
-        return clean_business_dataset(df=dataset, address=self.schema.address, business_id=self.schema.business_id,
-                                      categories=self.schema.categories, city=self.schema.city,
-                                      is_open=self.schema.is_open, stars=self.schema.stars, name=self.schema.name,
-                                      review_count=self.schema.review_count)
+        return clean_business_dataset(
+            df=dataset, address=self.schema.address, business_id=self.schema.business_id,
+            categories=self.schema.categories, city=self.schema.city,
+            is_open=self.schema.is_open, stars=self.schema.stars, name=self.schema.name,
+            review_count=self.schema.review_count
+        )
 
     def save(self, df: DataFrame, *args, **kwargs):
         for path in self.area.get_staging_business_dataset_path():

@@ -8,7 +8,7 @@ from data_engineer_pet_project_2.datalake.public import BasePublicArea
 from data_engineer_pet_project_2.datalake.staging import BaseStagingArea
 from data_engineer_pet_project_2.jobs.session import Session
 from data_engineer_pet_project_2.schema.checkin_business_star import YelpCheckinBusinessStarReportSchema
-from data_engineer_pet_project_2.transformers.checkin_business_star import get_business_checkins_with_star_report
+from data_engineer_pet_project_2.transformers.report.checkin_business_star import get_business_checkins_with_star_report
 
 log = logging.getLogger(__name__)
 
@@ -31,8 +31,10 @@ class YelpCheckinBusinessStarReportJob:
 
         return business_df, checkin_df
 
-    def _get_initial_dataset_paths(self, start_date: datetime, end_date: datetime, *args, **kwargs) -> List[str]:
-        return BaseStagingArea().get_staging_review_dataset_paths(start_date=start_date, end_date=end_date)
+    def _get_initial_dataset_paths(self, start_date: datetime, end_date: datetime,
+                                   *args, **kwargs) -> List[str]:
+        return BaseStagingArea().get_staging_review_dataset_paths(
+            start_date=start_date, end_date=end_date)
 
     def transform(self, business_df: DataFrame, checkin_df: DataFrame, *args, **kwargs) -> DataFrame:
         return get_business_checkins_with_star_report(
@@ -45,15 +47,17 @@ class YelpCheckinBusinessStarReportJob:
 
     def run(self):
         """Run extracting, transforming and saving dataframe job"""
-        log.info(f'Start to extract data...')
+        log.info('Start to extract data...')
         business_df, checkin_df = self.extract()
 
-        log.info(f'Start dataframe transformation...')
+        log.info('Start dataframe transformation...')
         df = self.transform(business_df=business_df, checkin_df=checkin_df)
 
-        log.info(f'Start save transformed results...')
+        log.info('Start save transformed results...')
         self.save(df)
 
     def save(self, df: DataFrame):
-        df.repartition(1).write.mode('overwrite').csv(path=self.area.get_public_checkin_business_star_path(),
-                                                      header=True)
+        df.repartition(1).write.mode('overwrite').csv(
+            path=self.area.get_public_checkin_business_star_path(),
+            header=True
+        )

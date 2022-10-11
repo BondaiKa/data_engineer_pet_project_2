@@ -27,7 +27,7 @@ def clean_weekly_review_cli(year: int, week_number: int):
     """
     start_date, end_date = get_date_range(year=year, number_of_week=week_number)
 
-    log.info(f"Run weekly cleaning and distributing `review` dataset for {week_number} week {year} year...")
+    log.info(f"Run weekly cleaning and distributing `review` dataset for {week_number} week ({start_date} - {end_date}) {year} year...")
     for _date in [start_date + timedelta(days=x) for x in range(7)]:
         clean_review_job = YelpReviewDatasetStagingJob()
         clean_review_job.run(date=_date)

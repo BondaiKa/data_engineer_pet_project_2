@@ -23,8 +23,9 @@ class YelpTipDatasetStagingJob(BaseJob):
         return BaseLandingArea().get_landing_raw_yelp_dataset_tip_json_path()
 
     def transform(self, df: DataFrame, *args, **kwargs) -> DataFrame:
-        return clean_tip_dataset(df=df, date=self.schema.date, compliment_count=self.schema.compliment_count,
-                                 business_id=self.schema.business_id, user_id=self.schema.user_id)
+        return clean_tip_dataset(
+            df=df, date=self.schema.date, compliment_count=self.schema.compliment_count,
+            business_id=self.schema.business_id, user_id=self.schema.user_id)
 
     def filter_df(self, dataset: DataFrame, *args, **kwargs) -> DataFrame:
         return dataset

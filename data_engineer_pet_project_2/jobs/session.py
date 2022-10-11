@@ -1,8 +1,9 @@
 from typing import List, Union
 
+from pyspark.sql import DataFrame as SparkDataFrame, SparkSession
+
 from data_engineer_pet_project_2.base import MetaSingleton
 from data_engineer_pet_project_2.config import Config
-from pyspark.sql import DataFrame as SparkDataFrame, SparkSession
 
 
 class Session(metaclass=MetaSingleton):
@@ -12,6 +13,7 @@ class Session(metaclass=MetaSingleton):
         self._ssc = spark_session
 
     def build_session(self):
+        """Build spark session"""
         builder = SparkSession.builder
         for param, value in Config().spark_conf.items():
             builder = builder.config(param, value)
@@ -19,6 +21,7 @@ class Session(metaclass=MetaSingleton):
 
     @property
     def spark_session(self) -> SparkSession:
+        """Spark session"""
         if self._ssc is None:
             self.build_session()
         return self._ssc
