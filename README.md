@@ -136,4 +136,13 @@ review_df \
 ```
 Here business dataframe is sent to all nodes in the cluster. 
 
-###
+### Reports
+
+![comparison between overall buiness stars and number of checkins](./static/business_star_checkin.png)  
+This chart describes comparison between overall buiness stars and average number of checkins
+
+However, after removing `outliers` we have another situation.
+After that I exclude `anomalies`. I cleaned the biggest and the least values and set border of 10%. So the number of checkins tha less than `5213` and more than `46920` was excluded.  
+![coprassion with filter](./static/business_star_checkin_filter.png)
+
+
