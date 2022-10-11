@@ -1,6 +1,6 @@
+import pandas as pd
 import pyspark
 import pytest
-import pandas as pd
 
 
 @pytest.fixture(scope='session', autouse=True)

@@ -1,5 +1,5 @@
-import logging
 import datetime
+import logging
 from typing import Tuple
 
 from pyspark.sql import DataFrame
@@ -36,7 +36,7 @@ class YelpPeriodBusinessStarReportJob:
         return get_period_business_star_report(
             business_df=business_df, review_df=review_df,
             business_name=self.schema.business_name, stars=self.schema.stars,
-            business_star_average=self.schema.business_stars_average
+            business_overall_stars=self.schema.business_stars_average,
         )
 
     def filter_df(self, dataset: DataFrame) -> DataFrame:
