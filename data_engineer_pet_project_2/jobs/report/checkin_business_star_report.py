@@ -7,7 +7,7 @@ from pyspark.sql import DataFrame
 from data_engineer_pet_project_2.datalake.public import BasePublicArea
 from data_engineer_pet_project_2.datalake.staging import BaseStagingArea
 from data_engineer_pet_project_2.jobs.session import Session
-from data_engineer_pet_project_2.schema.checkin_business_star import YelpCheckinBusinessStarReportSchema
+from data_engineer_pet_project_2.schema.checkin_business_star_schema import YelpCheckinBusinessStarReportSchema
 from data_engineer_pet_project_2.transformers.report.checkin_business_star import get_business_checkins_with_star_report
 
 log = logging.getLogger(__name__)

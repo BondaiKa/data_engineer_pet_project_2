@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime
+import datetime
 from typing import Tuple
 
 from pyspark.sql import DataFrame
@@ -7,7 +7,7 @@ from pyspark.sql import DataFrame
 from data_engineer_pet_project_2.datalake.public import BasePublicArea
 from data_engineer_pet_project_2.datalake.staging import BaseStagingArea
 from data_engineer_pet_project_2.jobs.session import Session
-from data_engineer_pet_project_2.schema.business_stars import YelpPeriodBusinessStarReportSchema
+from data_engineer_pet_project_2.schema.business_stars_schema import YelpPeriodBusinessStarReportSchema
 from data_engineer_pet_project_2.transformers.report.period_business_star import get_period_business_star_report
 
 log = logging.getLogger(__name__)
@@ -53,6 +53,6 @@ class YelpPeriodBusinessStarReportJob:
         log.info('Start save transformed results...')
         self.save(df, date=start_date)
 
-    def save(self, df: DataFrame, date: datetime):
+    def save(self, df: DataFrame, date: datetime.datetime):
         df.repartition(1).write.mode('overwrite') \
             .csv(path=self.area.get_public_weekly_business_stars_report_path(date), header=True)

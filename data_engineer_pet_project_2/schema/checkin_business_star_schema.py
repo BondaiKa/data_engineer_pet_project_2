@@ -1,5 +1,5 @@
-from data_engineer_pet_project_2.schema.business import YelpBusinessDatasetSchema
-from data_engineer_pet_project_2.schema.checkin import YelpCheckinDatasetSchema
+from data_engineer_pet_project_2.schema.business_schema import YelpBusinessDatasetSchema
+from data_engineer_pet_project_2.schema.checkin_schema import YelpCheckinDatasetSchema
 
 
 class YelpCheckinBusinessStarReportSchema:

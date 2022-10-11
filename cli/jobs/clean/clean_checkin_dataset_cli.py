@@ -2,7 +2,7 @@ import logging
 
 import click
 
-from data_engineer_pet_project_2.jobs.cleaning.clean_checkin_dataset import YelpCheckinDatasetStagingJob
+from data_engineer_pet_project_2.jobs.cleaning.clean_checkin_dataset_job import YelpCheckinDatasetStagingJob
 
 log = logging.getLogger(__name__)
 

@@ -5,9 +5,9 @@ from pyspark.sql import DataFrame
 
 from data_engineer_pet_project_2.datalake.landing import BaseLandingArea
 from data_engineer_pet_project_2.datalake.staging import BaseStagingArea
-from data_engineer_pet_project_2.jobs.base import BaseJob
+from data_engineer_pet_project_2.jobs.job_base import BaseJob
 from data_engineer_pet_project_2.jobs.session import Session
-from data_engineer_pet_project_2.schema.review import YelpReviewDatasetSchema
+from data_engineer_pet_project_2.schema.review_schema import YelpReviewDatasetSchema
 from data_engineer_pet_project_2.transformers.cleaning.clean_review_dataset import clean_review_dataset
 
 log = logging.getLogger(__name__)

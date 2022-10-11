@@ -2,9 +2,9 @@ from pyspark.sql import DataFrame
 
 from data_engineer_pet_project_2.datalake.landing import BaseLandingArea
 from data_engineer_pet_project_2.datalake.staging import BaseStagingArea
-from data_engineer_pet_project_2.jobs.base import BaseJob
+from data_engineer_pet_project_2.jobs.job_base import BaseJob
 from data_engineer_pet_project_2.jobs.session import Session
-from data_engineer_pet_project_2.schema.checkin import YelpCheckinDatasetSchema
+from data_engineer_pet_project_2.schema.checkin_schema import YelpCheckinDatasetSchema
 from data_engineer_pet_project_2.transformers.cleaning.clean_checkin_dataset import clean_checkin_dataset
 
 

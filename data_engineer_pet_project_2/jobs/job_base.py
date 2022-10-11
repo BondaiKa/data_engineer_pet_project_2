@@ -5,7 +5,7 @@ from typing import Optional
 
 from pyspark.sql import DataFrame
 
-from data_engineer_pet_project_2.datalake.base import BaseDataLakeArea
+from data_engineer_pet_project_2.datalake.datalake_base import BaseDataLakeArea
 from data_engineer_pet_project_2.jobs.session import Session
 
 log = logging.getLogger(__name__)

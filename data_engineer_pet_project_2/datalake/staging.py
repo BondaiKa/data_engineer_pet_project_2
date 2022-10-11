@@ -7,7 +7,7 @@ from data_engineer_pet_project_2.base.utils import (
     YELP_REVIEW_NAME, YELP_TIP_NAME,
     YELP_USER_NAME,
 )
-from data_engineer_pet_project_2.datalake.base import BaseDataLakeArea
+from data_engineer_pet_project_2.datalake.datalake_base import BaseDataLakeArea
 
 
 class BaseStagingArea(BaseDataLakeArea):

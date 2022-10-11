@@ -5,7 +5,7 @@ from datetime import timedelta
 import click
 
 from data_engineer_pet_project_2.base.utils import get_date_range
-from data_engineer_pet_project_2.jobs.cleaning.clean_review_dataset import YelpReviewDatasetStagingJob
+from data_engineer_pet_project_2.jobs.cleaning.clean_review_dataset_job import YelpReviewDatasetStagingJob
 
 log = logging.getLogger(__name__)
 

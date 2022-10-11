@@ -2,7 +2,7 @@ import datetime
 
 from data_engineer_pet_project_2.base.utils import YELP_CHECKIN_BUSINESS_OVERALL_STAR_REPORT, \
     YELP_WEEKLY_BUSINESS_STAR_REPORT
-from data_engineer_pet_project_2.datalake.base import BaseDataLakeArea
+from data_engineer_pet_project_2.datalake.datalake_base import BaseDataLakeArea
 
 
 class BasePublicArea(BaseDataLakeArea):
