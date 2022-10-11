@@ -32,5 +32,5 @@ class YelpBusinessDatasetStagingJob(BaseJob):
                                       review_count=self.schema.review_count)
 
     def save(self, df: DataFrame, *args, **kwargs):
-        for path in self.area.get_staging_business_dataset_paths():
+        for path in self.area.get_staging_business_dataset_path():
             df.repartition(1).write.mode('overwrite').parquet(path=path)

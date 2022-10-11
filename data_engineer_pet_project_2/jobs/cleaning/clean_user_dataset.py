@@ -32,5 +32,5 @@ class YelpUserDatasetStagingJob(BaseJob):
                                   fans=self.schema.fans, average_stars=self.schema.average_stars, )
 
     def save(self, df: DataFrame, *args, **kwargs):
-        for path in self.area.get_staging_user_dataset_paths():
+        for path in self.area.get_staging_user_dataset_path():
             df.repartition(1).write.mode('overwrite').parquet(path=path)

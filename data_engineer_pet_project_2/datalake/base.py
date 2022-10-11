@@ -1,5 +1,5 @@
+import datetime
 from abc import ABCMeta
-from datetime import datetime
 from pathlib import Path
 from typing import Iterable, List, Union
 
@@ -16,25 +16,43 @@ class BaseDataLakeArea(metaclass=ABCMeta):
         """Add datalake area name """
         return f"{self.AREA_CONTAINER}/{path}"
 
-    def add_dataset_name_prefix(self, path: Union[str, Path], dataset_name: str) -> str:
+    @staticmethod
+    def add_dataset_name_prefix(path: Union[str, Path], dataset_name: str) -> str:
         """Add dataset name prefix"""
         return f"{dataset_name}/{path}"
 
     def add_base_prefix(self, path: Union[str, Path]) -> str:
-        return f"{Config().dataset_core_path}/{path}"
+        return f"{self.config.dataset_core_path}/{path}"
 
-    def add_date_prefix(self, path: Union[str, Path], date: datetime) -> str:
+    @staticmethod
+    def add_year_prefix(path: Union[str, Path], year: int) -> str:
         """Enrich year and month in path"""
-        return f"{date.year}/{date.month:02d}/{path}"
+        return f"{year}/{path}"
 
-    def get_full_split_by_day_paths(self, paths: Iterable[Union[str, Path]], dataset_name: str, date: datetime) -> List[
-        str]:
+    @staticmethod
+    def add_month_prefix(path: Union[str, Path], month: int) -> str:
+        """Enrich year and month in path"""
+        return f"{month:02d}/{path}"
+
+    @staticmethod
+    def add_year_month_prefix(path: Union[str, Path], year: int, month: int) -> str:
+        """Enrich year and month in path"""
+        return f"{year}/{month:02d}/{path}"
+
+    def get_full_split_by_year_path(self, path: Union[str, Path], dataset_name: str,
+                                    date: datetime.date) -> str:
         """Add base directory and area and dataset and splitted by year and month prefixes"""
-        return [
-            self.add_base_prefix(
-                self.add_container_area_prefix(
-                    self.add_dataset_name_prefix(
-                        self.add_date_prefix(path, date=date), dataset_name=dataset_name))) for path in paths]
+        return self.add_base_prefix(
+            self.add_container_area_prefix(
+                self.add_dataset_name_prefix(
+                    self.add_year_prefix(
+                        path, year=date.year), dataset_name=dataset_name)))
+
+    def get_full_split_by_year_month_path(self, path: Union[str, Path], dataset_name: str,
+                                          date: datetime.date) -> str:
+        """Add base directory and area and dataset and splitted by year and month prefixes"""
+        return self.get_full_split_by_year_path(self.add_month_prefix(path, month=date.month), date=date,
+                                                dataset_name=dataset_name)
 
     def get_full_paths(self, paths: Iterable[Union[str, Path]], dataset_name: str) -> List[str]:
         """Add base directory and area and dataset prefixes"""

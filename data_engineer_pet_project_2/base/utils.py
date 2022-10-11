@@ -21,6 +21,9 @@ YELP_REVIEW_NAME = f"{YELP_DATASET_CORE_NAME}_review"
 YELP_TIP_NAME = f"{YELP_DATASET_CORE_NAME}_tip"
 YELP_USER_NAME = f"{YELP_DATASET_CORE_NAME}_user"
 
+YELP_CHECKIN_BUSINESS_OVERALL_STAR_REPORT = "checkin_business_overall_star_report"
+YELP_WEEKLY_BUSINESS_STAR_REPORT = "weekly_business_star_report"
+
 
 def get_date_range(year: int, number_of_week: int) -> Tuple[date, date]:
     """Get start and end date from year and week number

@@ -3,7 +3,7 @@ from pyspark.sql import DataFrame, functions as f
 
 def clean_user_dataset(df: DataFrame, user_id: str, name: str, review_count: str, useful: str,
                        funny: str, cool: str, fans: str,
-                       average_stars: str):
+                       average_stars: str) -> DataFrame:
     """Clean and converty column type of user dataset
 
     :param df: user dataset

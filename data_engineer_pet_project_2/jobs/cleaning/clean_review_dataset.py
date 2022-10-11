@@ -21,7 +21,7 @@ class YelpReviewDatasetStagingJob(BaseJob):
     def extract(self, date: datetime, *args, **kwargs) -> DataFrame:
         """Load dataset
 
-        :param end_date: end date (last day on a week)
+        :param date: for getting review on this date
         :return:
         """
         return self.filter_df(
@@ -52,5 +52,6 @@ class YelpReviewDatasetStagingJob(BaseJob):
         self.save(df, date, *args, **kwargs)
 
     def save(self, df: DataFrame, date: datetime, *args, **kwargs):
-        for path in self.area.get_staging_review_dataset_paths(date=date):
-            df.repartition(1).write.mode('overwrite').parquet(path=path)
+        df.repartition(1).write.mode('overwrite').parquet(
+            path=self.area.get_staging_review_dataset_path(date=date)
+        )

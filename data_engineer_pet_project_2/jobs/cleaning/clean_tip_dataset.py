@@ -30,5 +30,5 @@ class YelpTipDatasetStagingJob(BaseJob):
         return dataset
 
     def save(self, df: DataFrame, *args, **kwargs):
-        for path in self.area.get_staging_tip_dataset_paths():
+        for path in self.area.get_staging_tip_dataset_path():
             df.repartition(1).write.mode('overwrite').parquet(path=path)

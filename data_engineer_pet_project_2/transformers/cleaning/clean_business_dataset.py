@@ -2,7 +2,7 @@ from pyspark.sql import DataFrame, functions as f
 
 
 def clean_business_dataset(df: DataFrame, address: str, business_id: str, categories: str, city: str, is_open: str,
-                           stars: str, name: str, review_count: str):
+                           stars: str, name: str, review_count: str) -> DataFrame:
     """Clean initial business dataset
 
     clean business dataset and remain only required columns for further analysis

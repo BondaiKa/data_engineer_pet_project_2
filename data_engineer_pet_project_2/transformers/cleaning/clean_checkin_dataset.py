@@ -1,7 +1,8 @@
 from pyspark.sql import DataFrame, functions as f
 
 
-def clean_checkin_dataset(df: DataFrame, business_id: str, date: str, result_date_count_field: str = 'count'):
+def clean_checkin_dataset(df: DataFrame, business_id: str, date: str,
+                          result_date_count_field: str = 'count') -> DataFrame:
     """Clean and transform checking dataset"""
     return df \
         .withColumn(date, f.explode(f.split(f.col(date), pattern=", "))) \

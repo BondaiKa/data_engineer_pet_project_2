@@ -4,7 +4,7 @@ from pyspark.sql import DataFrame, functions as f
 
 
 def clean_review_dataset(df: DataFrame, review_id, user_id: str, business_id: str, stars: str,
-                         date: str, filter_condition_date: datetime):
+                         date: str, filter_condition_date: datetime) -> DataFrame:
     """Clean convert and filtered by date review dataset
 
     :param df: review dataset

@@ -1,3 +1,4 @@
+import datetime
 import logging
 from datetime import timedelta
 
@@ -17,7 +18,7 @@ def cli():
 @cli.command()
 @click.option('--year', '-y', type=click.INT, required=True)
 @click.option('--week_number', '-w', type=click.INT, required=True)
-def weekly_clean_review_cli(year: int, week_number: int):
+def clean_weekly_review_cli(year: int, week_number: int):
     """Clean and store daily review files for one set week
 
     :param year: year of weekly cleaning reviews
@@ -27,8 +28,24 @@ def weekly_clean_review_cli(year: int, week_number: int):
     start_date, end_date = get_date_range(year=year, number_of_week=week_number)
 
     log.info(f"Run weekly cleaning and distributing `review` dataset for {week_number} week {year} year...")
-    for cur_date in [start_date + timedelta(days=x) for x in range(6)]:
+    for _date in [start_date + timedelta(days=x) for x in range(7)]:
         clean_review_job = YelpReviewDatasetStagingJob()
-        clean_review_job.run(date=cur_date)
+        clean_review_job.run(date=_date)
 
-    log.info(f"`Weakly cleaning review dataset done...")
+    log.info(f"Weakly cleaning review dataset done...")
+
+
+@cli.command()
+@click.option('--date', '-d', type=click.DateTime(formats=["%Y-%m-%d"]), required=True)
+def clean_daily_review_cli(date: datetime):
+    """Clean and store daily review files for one day
+
+    :param date: clean review on this day
+    :return:
+    """
+
+    log.info(f"Run cleaning and `review` dataset for {date} date...")
+    clean_review_job = YelpReviewDatasetStagingJob()
+    clean_review_job.run(date=date.date())
+
+    log.info(f"Cleaning review dataset done...")
