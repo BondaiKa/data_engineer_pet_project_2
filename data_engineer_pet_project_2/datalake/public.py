@@ -12,8 +12,8 @@ class BasePublicArea(BaseDataLakeArea):
     def get_public_checkin_business_star_path(self):
         """Checkin business star report path"""
         filename = f"{YELP_CHECKIN_BUSINESS_OVERALL_STAR_REPORT}.csv"
-        return self.get_full_paths(paths=[filename],
-                                   dataset_name=YELP_CHECKIN_BUSINESS_OVERALL_STAR_REPORT)[0]
+        return self.get_full_path(path=filename,
+                                  dataset_name=YELP_CHECKIN_BUSINESS_OVERALL_STAR_REPORT)
 
     def get_public_weekly_business_stars_report_path(self, date: datetime.date):
         """Weekly business star report path"""

@@ -1,7 +1,7 @@
 import datetime
 from abc import ABCMeta
 from pathlib import Path
-from typing import Iterable, List, Union
+from typing import Union
 
 from data_engineer_pet_project_2.config import Config
 
@@ -56,10 +56,12 @@ class BaseDataLakeArea(metaclass=ABCMeta):
                                                 date=date,
                                                 dataset_name=dataset_name)
 
-    def get_full_paths(self, paths: Iterable[Union[str, Path]], dataset_name: str) -> List[str]:
+    def get_full_path(self, path: Union[str, Path], dataset_name: str) -> str:
         """Add base directory and area and dataset prefixes"""
-        return [
-            self.add_base_prefix(
-                self.add_container_area_prefix(
-                    self.add_dataset_name_prefix(
-                        path, dataset_name=dataset_name))) for path in paths]
+        return self.add_base_prefix(
+            self.add_container_area_prefix(
+                self.add_dataset_name_prefix(
+                    path, dataset_name=dataset_name
+                )
+            )
+        )

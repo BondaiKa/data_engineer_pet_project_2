@@ -18,7 +18,7 @@ class BaseStagingArea(BaseDataLakeArea):
     def get_staging_business_dataset_path(self):
         """cleaned business dataset path"""
         filename = f"{YELP_BUSINESS_NAME}.parquet"
-        return self.get_full_paths(paths=[filename], dataset_name=YELP_BUSINESS_NAME)
+        return self.get_full_path(path=filename, dataset_name=YELP_BUSINESS_NAME)
 
     def get_staging_review_dataset_paths(self, start_date: datetime, end_date: datetime) -> List[str]:
         """cleaned weekly review dataset paths"""
@@ -36,14 +36,14 @@ class BaseStagingArea(BaseDataLakeArea):
     def get_staging_user_dataset_path(self):
         """cleaned user dataset path"""
         filename = f"{YELP_USER_NAME}.parquet"
-        return self.get_full_paths(paths=[filename], dataset_name=YELP_USER_NAME)
+        return self.get_full_path(path=filename, dataset_name=YELP_USER_NAME)
 
     def get_staging_checkin_dataset_path(self):
         """cleaned checkin dataset path"""
         filename = f"{YELP_CHECKIN_NAME}.parquet"
-        return self.get_full_paths(paths=[filename], dataset_name=YELP_CHECKIN_NAME)
+        return self.get_full_path(path=filename, dataset_name=YELP_CHECKIN_NAME)
 
     def get_staging_tip_dataset_path(self):
         """cleaned tip dataset path"""
         filename = f"{YELP_TIP_NAME}.parquet"
-        return self.get_full_paths(paths=[filename], dataset_name=YELP_TIP_NAME)
+        return self.get_full_path(path=filename, dataset_name=YELP_TIP_NAME)
